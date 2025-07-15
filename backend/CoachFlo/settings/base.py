@@ -15,7 +15,7 @@ SITE_ID = 1
 
 DEBUG = True
 
-ADMINS = (("Admin", "foo@example.com"),)
+ADMINS = (("Admin", "nikita.polikarpov050@gmail.com"),)
 
 AUTH_USER_MODEL = "users.User"
 
@@ -59,7 +59,7 @@ MIDDLEWARE = [
     "django_guid.middleware.guid_middleware",
 ]
 
-ROOT_URLCONF = "{{project_name}}.urls"
+ROOT_URLCONF = "CoachFlo.urls"
 
 TEMPLATES = [
     {
@@ -87,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "{{project_name}}.wsgi.application"
+WSGI_APPLICATION = "CoachFlo.wsgi.application"
 
 AUTH_PASSWORD_VALIDATORS = [
     {

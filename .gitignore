@@ -4,10 +4,13 @@ db.sqlite3-journal
 .DS_Store
 .env
 **/settings/local.py
+**/settings/local.py.example
 /staticfiles/*
 /mediafiles/*
 __pycache__/
 /.vscode/
+package-lock.json
+poetry.lock
 
 # coverage result
 .coverage
@@ -33,8 +36,9 @@ npm-debug.log
 *.map
 
 # General
-/{{project_name}}-venv/
+/CoachFlo-venv/
 /venv/
+/.venv/
 /env/
 /output/
 /cache/

@@ -1,9 +1,6 @@
 [tool.poetry]
-name = "{{project_name}}"
+name = "CoachFlo"
 version = "0.1.0"
-description = "Django 5, React, Bootstrap 5 with Python 3 and webpack project boilerplate"
-authors = ["Vinta Software <contact@vinta.com.br>"]
-license = "MIT"
 readme = "README.md"
 package-mode = false
 

@@ -46,7 +46,7 @@ runs:
       run: pip install "django>=4,<5"
       shell: bash
     - name: Setup testproject
-      run: django-admin startproject testproject --extension py,json,yml,yaml,toml --name Dockerfile,README.md,.env.example,.gitignore,Makefile --template=.
+      run: django-admin startproject testproject --extension py,json,yml,yaml,toml --name Dockerfile,README.md,.env,.gitignore,Makefile --template=.
       shell: bash
     - run: |
         npm update --save
@@ -68,7 +68,7 @@ runs:
     - run: cp testproject/settings/local.py.example testproject/settings/local.py
       working-directory: testproject/backend
       shell: bash
-    - run: cp .env.example .env
+    - run: cp .env .env
       working-directory: testproject/backend
       shell: bash
     - run: poetry run python manage.py makemigrations
