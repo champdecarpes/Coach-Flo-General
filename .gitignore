@@ -4,7 +4,6 @@ db.sqlite3-journal
 .DS_Store
 .env
 **/settings/local.py
-**/settings/local.py.example
 /staticfiles/*
 /mediafiles/*
 __pycache__/
