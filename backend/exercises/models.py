@@ -46,10 +46,10 @@ class Exercise(models.Model):
         ('upper_body_vertical_pull', 'Upper Body Vertical Pull'),
         ('upper_body_vertical_push', 'Upper Body Vertical Push')
     ])
-    strength = models.DecimalField(max_length=5, decimal_places=2, default=0)
-    bodyweight = models.DecimalField(max_length=5, decimal_places=2, default=0)
+    strength = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    bodyweight = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     timed = models.TimeField(default=0)
-    distance_x_time = models.DecimalField(max_length=50, default=0.0, decimal_places=2)
+    distance_x_time = models.DecimalField(max_digits=50, default=0.0, decimal_places=2)
     instructions = models.TextField(max_length=500, default='')
     links = models.TextField(max_length=500, default='')
     default_note = models.TextField(max_length=500, default='')
@@ -70,7 +70,7 @@ class Exercise(models.Model):
         verbose_name_plural = "Exercises"
 
 class TrackingFields(models.Model):
-    time = models.TimeField(max_digits=10, decimal_places=2)
+    time = models.TimeField()
     speed = models.DecimalField(max_digits=10, decimal_places=2)
     cadence = models.DecimalField(max_digits=5, decimal_places=3)
     distance = models.DecimalField(max_digits=10, decimal_places=2)
@@ -80,7 +80,7 @@ class TrackingFields(models.Model):
     percentage_hr = models.DecimalField(max_digits=4, decimal_places=3)
     rpm = models.DecimalField(max_digits=10, decimal_places=2)
     round_field = models.IntegerField()
-    rest = models.TimeField(max_digits=10, decimal_places=2)
+    rest = models.TimeField()
 
     class Meta:
         verbose_name = "Tracking Field"

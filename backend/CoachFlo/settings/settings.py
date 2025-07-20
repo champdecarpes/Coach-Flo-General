@@ -15,9 +15,9 @@ SITE_ID = 1
 
 DEBUG = True
 
-ADMINS = (("Admin", "nikita.polikarpov050@gmail.com"),)
+# ADMINS = (("Admin", "nikita.polikarpov050@gmail.com"),)
 
-AUTH_USER_MODEL = "users.User"
+# AUTH_USER_MODEL = "users.User"
 
 ALLOWED_HOSTS = []
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "defender",
     "django_guid",
     "common",
-    "users",
+    "exercises"
 ]
 
 MIDDLEWARE = [
@@ -117,12 +117,12 @@ REST_FRAMEWORK = {
 }
 
 # drf-spectacular
-SPECTACULAR_SETTINGS = {
-    "TITLE": "Vinta Boilerplate API",
-    "DESCRIPTION": "A Django project boilerplate with Vinta's best practices",
-    "VERSION": "0.1.0",
-    "SERVE_INCLUDE_SCHEMA": False,
-}
+# SPECTACULAR_SETTINGS = {
+#     "TITLE": "Vinta Boilerplate API",
+#     "DESCRIPTION": "A Django project boilerplate with Vinta's best practices",
+#     "VERSION": "0.1.0",
+#     "SERVE_INCLUDE_SCHEMA": False,
+# }
 
 LANGUAGE_CODE = "en-us"
 
