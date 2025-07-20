@@ -3,7 +3,6 @@ import os
 from decouple import config
 from dj_database_url import parse as db_url
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
@@ -40,7 +39,8 @@ INSTALLED_APPS = [
     "defender",
     "django_guid",
     "common",
-    "exercises"
+    "exercises",
+    "bodies"
 ]
 
 MIDDLEWARE = [
@@ -130,7 +130,6 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-
 USE_TZ = True
 
 STATICFILES_DIRS = (base_dir_join("../frontend"),)
@@ -210,19 +209,19 @@ PERMISSIONS_POLICY = {
 # Django-CSP
 CSP_INCLUDE_NONCE_IN = ["script-src", "style-src", "font-src"]
 CSP_SCRIPT_SRC = [
-    "'self'",
-    "'unsafe-inline'",
-    "'unsafe-eval'",
-    "https://browser.sentry-cdn.com",
-    # drf-spectacular UI (Swagger and ReDoc)
-    "https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/",
-    "https://cdn.jsdelivr.net/npm/redoc@latest/",
-    "blob:",
-] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
+                     "'self'",
+                     "'unsafe-inline'",
+                     "'unsafe-eval'",
+                     "https://browser.sentry-cdn.com",
+                     # drf-spectacular UI (Swagger and ReDoc)
+                     "https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/",
+                     "https://cdn.jsdelivr.net/npm/redoc@latest/",
+                     "blob:",
+                 ] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
 CSP_CONNECT_SRC = [
-    "'self'",
-    "*.sentry.io",
-] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
+                      "'self'",
+                      "*.sentry.io",
+                  ] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
 CSP_STYLE_SRC = [
     "'self'",
     "'unsafe-inline'",
@@ -232,11 +231,11 @@ CSP_STYLE_SRC = [
     "https://fonts.googleapis.com",
 ]
 CSP_FONT_SRC = [
-    "'self'",
-    "'unsafe-inline'",
-    # drf-spectacular UI (Swagger and ReDoc)
-    "https://fonts.gstatic.com",
-] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
+                   "'self'",
+                   "'unsafe-inline'",
+                   # drf-spectacular UI (Swagger and ReDoc)
+                   "https://fonts.gstatic.com",
+               ] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
 CSP_IMG_SRC = [
     "'self'",
     # drf-spectacular UI (Swagger and ReDoc)

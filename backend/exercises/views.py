@@ -5,38 +5,41 @@ from rest_framework.response import Response
 from .models import Exercise, TrackingFields
 from .serializers import ExerciseSerializer, TrackingFieldsSerializer
 
+
 class ExerciseViewSet(viewsets.ModelViewSet):
     """
-    ViewSet для управления упражнениями.
-    Предоставляет CRUD-операции: list, create, retrieve, update, partial_update, destroy.
-    Все поля модели, включая tracking_fields и monitored_fields, доступны для изменения через API.
+    CRUD: list, create, retrieve, update, partial_update, destroy
+    All model fields are available for modification via API
     """
     queryset = Exercise.objects.all().select_related('tracking_fields')
-    # select_related оптимизирует запросы для OneToOne связи
+
+    # select_related optimizes queries for OneToOne relationship
     serializer_class = ExerciseSerializer
+    # Read access for all, write access only for authenticated users
+
     permission_classes = [IsAuthenticatedOrReadOnly]
-    # Разрешение: чтение для всех, запись только для аутентифицированных пользователей
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+
+    # Filtering by modality, muscle_group, movement_pattern fields
     search_fields = ['modality', 'muscle_group', 'movement_pattern']
-    # Фильтрация по полям modality, muscle_group, movement_pattern
+    # Sorting by id, modality, strength
     ordering_fields = ['id', 'modality', 'strength']
-    # Сортировка по id, modality, strength
 
     def create(self, request, *args, **kwargs):
         """
-        Создание нового упражнения.
-        Выполняет валидацию и сохраняет данные, включая вложенный tracking_fields.
-        Обрабатывает случай, если tracking_fields отсутствует в запросе.
+        Create new Exercise object
+        Performs validation and saves data including nested tracking_fields
+        Handles case when tracking_fields is missing in request
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
             self.perform_create(serializer)
         except KeyError:
-            # Если tracking_fields отсутствует, используем пустой объект
+            # If tracking_fields is missing, use empty object
             tracking_data = {'time': '00:00:00', 'speed': 0.00, 'cadence': 0.000, 'distance': 0.00,
-                           'reps': 0, 'weight': 0.00, 'heart_rate': 0.00, 'percentage_hr': 0.000,
-                           'rpm': 0.00, 'round_field': 0, 'rest': '00:00:00'}
+                             'reps': 0, 'weight': 0.00, 'heart_rate': 0.00, 'percentage_hr': 0.000,
+                             'rpm': 0.00, 'round_field': 0, 'rest': '00:00:00'}
             validated_data = serializer.validated_data
             validated_data['tracking_fields'] = tracking_data
             serializer = self.get_serializer(data=validated_data)
@@ -47,9 +50,8 @@ class ExerciseViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         """
-        Обновление существующего упражнения.
-        Обновляет как сам объект Exercise, так и связанный tracking_fields.
-        Поддерживает частичное обновление (PATCH).
+        Update existing Exercise object
+        Supports PATCH
         """
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
@@ -58,12 +60,11 @@ class ExerciseViewSet(viewsets.ModelViewSet):
         self.perform_update(serializer)
         return Response(serializer.data)
 
-
     # @action(detail=False, methods=['get'], url_path='by-modality/(?P<modality>\w+)')
     # def by_modality(self, request, modality=None):
     #     """
-    #     Кастомное действие для получения упражнений по модальности.
-    #     Доступно по адресу /api/exercises/by-modality/<modality>/
+    #     Custom action to get Exercise objects by modality
+    #     Available at /api/exercises/by-modality/<modality>/
     #     """
     #     exercises = self.queryset.filter(modality=modality)
     #     serializer = self.get_serializer(exercises, many=True)

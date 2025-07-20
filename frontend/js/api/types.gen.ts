@@ -4,111 +4,115 @@ export type Message = {
   message: string;
 };
 
-export type PaginatedUserList = {
-  count: number;
-  next?: string | null;
-  previous?: string | null;
-  results: Array<User>;
-};
-
-export type PatchedUser = {
-  readonly id?: number;
-  email?: string;
-  /**
-   * Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
-   */
-  is_active?: boolean;
-  /**
-   * Designates whether the user can log into this admin site.
-   */
-  is_staff?: boolean;
-  /**
-   * Designates that this user has all permissions without explicitly assigning them.
-   */
-  is_superuser?: boolean;
-  readonly created?: string;
-  readonly modified?: string;
-  last_login?: string | null;
-};
-
-export type User = {
-  readonly id: number;
-  email: string;
-  /**
-   * Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
-   */
-  is_active?: boolean;
-  /**
-   * Designates whether the user can log into this admin site.
-   */
-  is_staff?: boolean;
-  /**
-   * Designates that this user has all permissions without explicitly assigning them.
-   */
-  is_superuser?: boolean;
-  readonly created: string;
-  readonly modified: string;
-  last_login?: string | null;
-};
-
 export type RestRestCheckRetrieveResponse = Message;
 
-export type UsersListData = {
-  /**
-   * Number of results to return per page.
-   */
-  limit?: number;
-  /**
-   * The initial index from which to return the results.
-   */
-  offset?: number;
+export type SchemaRetrieveData = {
+  format?: "json" | "yaml";
+  lang?:
+    | "af"
+    | "ar"
+    | "ar-dz"
+    | "ast"
+    | "az"
+    | "be"
+    | "bg"
+    | "bn"
+    | "br"
+    | "bs"
+    | "ca"
+    | "ckb"
+    | "cs"
+    | "cy"
+    | "da"
+    | "de"
+    | "dsb"
+    | "el"
+    | "en"
+    | "en-au"
+    | "en-gb"
+    | "eo"
+    | "es"
+    | "es-ar"
+    | "es-co"
+    | "es-mx"
+    | "es-ni"
+    | "es-ve"
+    | "et"
+    | "eu"
+    | "fa"
+    | "fi"
+    | "fr"
+    | "fy"
+    | "ga"
+    | "gd"
+    | "gl"
+    | "he"
+    | "hi"
+    | "hr"
+    | "hsb"
+    | "hu"
+    | "hy"
+    | "ia"
+    | "id"
+    | "ig"
+    | "io"
+    | "is"
+    | "it"
+    | "ja"
+    | "ka"
+    | "kab"
+    | "kk"
+    | "km"
+    | "kn"
+    | "ko"
+    | "ky"
+    | "lb"
+    | "lt"
+    | "lv"
+    | "mk"
+    | "ml"
+    | "mn"
+    | "mr"
+    | "ms"
+    | "my"
+    | "nb"
+    | "ne"
+    | "nl"
+    | "nn"
+    | "os"
+    | "pa"
+    | "pl"
+    | "pt"
+    | "pt-br"
+    | "ro"
+    | "ru"
+    | "sk"
+    | "sl"
+    | "sq"
+    | "sr"
+    | "sr-latn"
+    | "sv"
+    | "sw"
+    | "ta"
+    | "te"
+    | "tg"
+    | "th"
+    | "tk"
+    | "tr"
+    | "tt"
+    | "udm"
+    | "ug"
+    | "uk"
+    | "ur"
+    | "uz"
+    | "vi"
+    | "zh-hans"
+    | "zh-hant";
 };
 
-export type UsersListResponse = PaginatedUserList;
-
-export type UsersCreateData = {
-  requestBody: User;
+export type SchemaRetrieveResponse = {
+  [key: string]: unknown;
 };
-
-export type UsersCreateResponse = User;
-
-export type UsersRetrieveData = {
-  /**
-   * A unique integer value identifying this user.
-   */
-  id: number;
-};
-
-export type UsersRetrieveResponse = User;
-
-export type UsersUpdateData = {
-  /**
-   * A unique integer value identifying this user.
-   */
-  id: number;
-  requestBody: User;
-};
-
-export type UsersUpdateResponse = User;
-
-export type UsersPartialUpdateData = {
-  /**
-   * A unique integer value identifying this user.
-   */
-  id: number;
-  requestBody?: PatchedUser;
-};
-
-export type UsersPartialUpdateResponse = User;
-
-export type UsersDestroyData = {
-  /**
-   * A unique integer value identifying this user.
-   */
-  id: number;
-};
-
-export type UsersDestroyResponse = void;
 
 export type $OpenApiTs = {
   "/api/rest/rest-check/": {
@@ -118,46 +122,13 @@ export type $OpenApiTs = {
       };
     };
   };
-  "/api/users/": {
+  "/api/schema/": {
     get: {
-      req: UsersListData;
+      req: SchemaRetrieveData;
       res: {
-        200: PaginatedUserList;
-      };
-    };
-    post: {
-      req: UsersCreateData;
-      res: {
-        201: User;
-      };
-    };
-  };
-  "/api/users/{id}/": {
-    get: {
-      req: UsersRetrieveData;
-      res: {
-        200: User;
-      };
-    };
-    put: {
-      req: UsersUpdateData;
-      res: {
-        200: User;
-      };
-    };
-    patch: {
-      req: UsersPartialUpdateData;
-      res: {
-        200: User;
-      };
-    };
-    delete: {
-      req: UsersDestroyData;
-      res: {
-        /**
-         * No response body
-         */
-        204: void;
+        200: {
+          [key: string]: unknown;
+        };
       };
     };
   };

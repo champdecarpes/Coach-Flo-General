@@ -1,8 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Vinta Boilerplate API
-  version: 0.1.0
-  description: A Django project boilerplate with Vinta's best practices
+  title: ''
+  version: 0.0.0
 paths:
   /api/rest/rest-check/:
     get:
@@ -27,158 +26,151 @@ paths:
                       this, the REST API is working!
                   summary: Successful Response
           description: ''
-  /api/users/:
+  /api/schema/:
     get:
-      operationId: users_list
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
+      - in: query
+        name: format
         schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
         schema:
-          type: integer
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
       tags:
-      - users
+      - schema
       security:
       - cookieAuth: []
+      - {}
       responses:
         '200':
           content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedUserList'
+                type: object
+                additionalProperties: {}
           description: ''
-    post:
-      operationId: users_create
-      tags:
-      - users
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      security:
-      - cookieAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-          description: ''
-  /api/users/{id}/:
-    get:
-      operationId: users_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this user.
-        required: true
-      tags:
-      - users
-      security:
-      - cookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-          description: ''
-    put:
-      operationId: users_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this user.
-        required: true
-      tags:
-      - users
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      security:
-      - cookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-          description: ''
-    patch:
-      operationId: users_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this user.
-        required: true
-      tags:
-      - users
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedUser'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedUser'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedUser'
-      security:
-      - cookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-          description: ''
-    delete:
-      operationId: users_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this user.
-        required: true
-      tags:
-      - users
-      security:
-      - cookieAuth: []
-      responses:
-        '204':
-          description: No response body
 components:
   schemas:
     Message:
@@ -188,102 +180,6 @@ components:
           type: string
       required:
       - message
-    PaginatedUserList:
-      type: object
-      required:
-      - count
-      - results
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-    PatchedUser:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        email:
-          type: string
-          format: email
-          maxLength: 255
-        is_active:
-          type: boolean
-          description: Designates whether this user should be treated as active. Unselect
-            this instead of deleting accounts.
-        is_staff:
-          type: boolean
-          description: Designates whether the user can log into this admin site.
-        is_superuser:
-          type: boolean
-          title: Superuser status
-          description: Designates that this user has all permissions without explicitly
-            assigning them.
-        created:
-          type: string
-          format: date-time
-          readOnly: true
-        modified:
-          type: string
-          format: date-time
-          readOnly: true
-        last_login:
-          type: string
-          format: date-time
-          nullable: true
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        email:
-          type: string
-          format: email
-          maxLength: 255
-        is_active:
-          type: boolean
-          description: Designates whether this user should be treated as active. Unselect
-            this instead of deleting accounts.
-        is_staff:
-          type: boolean
-          description: Designates whether the user can log into this admin site.
-        is_superuser:
-          type: boolean
-          title: Superuser status
-          description: Designates that this user has all permissions without explicitly
-            assigning them.
-        created:
-          type: string
-          format: date-time
-          readOnly: true
-        modified:
-          type: string
-          format: date-time
-          readOnly: true
-        last_login:
-          type: string
-          format: date-time
-          nullable: true
-      required:
-      - created
-      - email
-      - id
-      - modified
   securitySchemes:
     cookieAuth:
       type: apiKey

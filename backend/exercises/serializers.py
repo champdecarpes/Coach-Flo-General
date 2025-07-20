@@ -4,8 +4,8 @@ from .models import Exercise, TrackingFields
 
 class TrackingFieldsSerializer(serializers.ModelSerializer):
     """
-    Сериализатор для модели TrackingFields.
-    Преобразует все поля модели в JSON и обратно, включая TimeField и DecimalField.
+    Serializer for the TrackingFields model
+    Converts all model fields to JSON and back, including TimeField and DecimalField
     """
 
     class Meta:
@@ -15,8 +15,8 @@ class TrackingFieldsSerializer(serializers.ModelSerializer):
 
 class ExerciseSerializer(serializers.ModelSerializer):
     """
-    Сериализатор для модели Exercise.
-    Обрабатывает все поля, включая вложенную модель TrackingFields через OneToOneField.
+    Serializer for the Exercise model
+    Handles all fields, including nested TrackingFields model via OneToOneField
     """
     tracking_fields = TrackingFieldsSerializer()
 
@@ -24,36 +24,44 @@ class ExerciseSerializer(serializers.ModelSerializer):
         model = Exercise
         fields = '__all__'
 
-    def validate_monitored_fields(self, value):
+    def validate_tracking_fields(self, value):
         """
-        Валидация поля monitored_fields, чтобы убедиться, что оно содержит не более 3 элементов.
+        Validation for monitored_fields to ensure it contains no more than 3 elements
         """
         if value and len(value) > 3:
-            raise serializers.ValidationError("Можно мониторить не более 3 полей.")
+            raise serializers.ValidationError("No more than 3 tracking fields")
         return value
 
     def create(self, validated_data):
         """
-        Создание нового экземпляра Exercise с вложенной моделью TrackingFields.
-        Извлекает данные tracking_fields, создает связанный объект и сохраняет Exercise.
+        Create a new Exercise instance with nested TrackingFields model
+        Extracts tracking_fields data, creates related object, and saves Exercise
         """
-
-        # Может вызвать ошибку, если tracking_fields будет пустым
-        tracking_data = validated_data.pop('tracking_fields')
-        tracking_instance = TrackingFields.objects.create(**tracking_data)
-        exercise_instance = Exercise.objects.create(tracking_fields=tracking_instance, **validated_data)
+        # Handle case when tracking_fields might be empty
+        tracking_data = validated_data.pop('tracking_fields', {})
+        if tracking_data:
+            tracking_instance = TrackingFields.objects.create(**tracking_data)
+            exercise_instance = Exercise.objects.create(tracking_fields=tracking_instance, **validated_data)
+        else:
+            exercise_instance = Exercise.objects.create(**validated_data)
         return exercise_instance
 
     def update(self, instance, validated_data):
         """
-        Обновление существующего экземпляра Exercise и связанной модели TrackingFields.
-        Обновляет данные tracking_fields и сохраняет изменения в обеих моделях.
+        Update existing Exercise instance and related TrackingFields model
+        Updates tracking_fields data and saves changes to both models
         """
-        tracking_data = validated_data.pop('tracking_fields')
-        tracking_instance = instance.tracking_fields
-        for attr, value in tracking_data.items():
-            setattr(tracking_instance, attr, value)
-        tracking_instance.save()
+        tracking_data = validated_data.pop('tracking_fields', {})
+
+        if tracking_data and hasattr(instance, 'tracking_fields') and instance.tracking_fields:
+            tracking_instance = instance.tracking_fields
+            for attr, value in tracking_data.items():
+                setattr(tracking_instance, attr, value)
+            tracking_instance.save()
+        elif tracking_data:
+            # Create tracking_fields if it doesn't exist but data is provided
+            tracking_instance = TrackingFields.objects.create(**tracking_data)
+            instance.tracking_fields = tracking_instance
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
