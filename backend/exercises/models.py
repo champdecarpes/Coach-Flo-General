@@ -3,11 +3,19 @@ from django.utils import timezone
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from trainers.models import Trainer
+
 
 class Exercise(models.Model):
-
     name = models.CharField(max_length=75, default='')
     created_at = models.DateTimeField(default=timezone.now)
+
+    # Trainer who created the program  # Ownership details
+    ownership = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    visibility = models.CharField(max_length=20, choices=[
+        ('public', 'Public'),
+        ('private', 'Private')
+    ], default='private')  # Visibility setting for the program
 
     # Exercise modality type
     modality = models.CharField(max_length=50, choices=[
@@ -61,10 +69,13 @@ class Exercise(models.Model):
     # Links to additional resources
     links = models.TextField(max_length=500, default='')
 
-    # Default note for the exercise
-    default_note = models.CharField(max_length=100, default='')
+    # note for the exercise
+    note = models.CharField(max_length=100, default='')
 
-    tracking_fields = models.OneToOneField('TrackingFields', on_delete=models.CASCADE)
+    # Flag for each side execution
+    each_side = models.BooleanField(default=False)
+
+
     # List of monitored field names (<=3)
     monitored_fields = models.JSONField(default=list, blank=True)
 
@@ -80,7 +91,10 @@ class Exercise(models.Model):
         verbose_name = "Exercise"
         verbose_name_plural = "Exercises"
 
+
 class TrackingFields(models.Model):
+
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     strength = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     bodyweight = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     timed = models.TimeField(default='00:00:00')
@@ -107,7 +121,6 @@ class TrackingFields(models.Model):
     round_field = models.IntegerField()
     # Rest time
     rest = models.TimeField(default='00:00:00')
-
 
     def __str__(self):
         return self.id
