@@ -8,15 +8,14 @@ class ExerciseAdmin(admin.ModelAdmin):
     Admin class for Exercise model
     Configures display, filtering, search and validation in admin panel
     """
-    list_display = ['id', 'modality', 'muscle_group', 'movement_pattern', 'strength', 'timed', 'tracking_fields_display']
+    list_display = ['id', 'modality', 'muscle_group', 'movement_pattern', 'tracking_fields_display']
     # Includes custom method to display tracking_fields
 
     list_filter = ['modality', 'muscle_group', 'movement_pattern']
 
     search_fields = ['modality', 'muscle_group', 'movement_pattern', 'instructions']
 
-    fields = ['modality', 'muscle_group', 'movement_pattern', 'strength', 'bodyweight',
-              'timed', 'distance_x_time', 'instructions', 'links', 'default_note',
+    fields = ['modality', 'muscle_group', 'movement_pattern', 'instructions', 'links', 'default_note',
               'monitored_fields']
 
     def get_readonly_fields(self, request, obj=None):

@@ -61,7 +61,7 @@ class BodyChangeHistory(models.Model):
     Model for storing history of changes to Body metrics
     """
     body = models.ForeignKey(Body, on_delete=models.CASCADE)  # Reference to the Body instance
-    field_name = models.CharField(max_length=50)  # Name of the modified field
+    field_name = models.CharField(max_length=50, default='')  # Name of the modified field
     old_value = models.CharField(max_length=100, blank=True, null=True)  # Old value of the field
     new_value = models.CharField(max_length=100)  # New value of the field
     timestamp = models.DateTimeField(default=timezone.now)  # Time of the change

@@ -5,7 +5,6 @@ from .models import Exercise, TrackingFields
 class TrackingFieldsSerializer(serializers.ModelSerializer):
     """
     Serializer for the TrackingFields model
-    Converts all model fields to JSON and back, including TimeField and DecimalField
     """
 
     class Meta:
@@ -16,7 +15,6 @@ class TrackingFieldsSerializer(serializers.ModelSerializer):
 class ExerciseSerializer(serializers.ModelSerializer):
     """
     Serializer for the Exercise model
-    Handles all fields, including nested TrackingFields model via OneToOneField
     """
     tracking_fields = TrackingFieldsSerializer()
 
@@ -35,7 +33,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """
         Create a new Exercise instance with nested TrackingFields model
-        Extracts tracking_fields data, creates related object, and saves Exercise
         """
         # Handle case when tracking_fields might be empty
         tracking_data = validated_data.pop('tracking_fields', {})

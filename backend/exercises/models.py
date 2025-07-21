@@ -1,11 +1,13 @@
+from django.utils import timezone
+
 from django.db import models
 from django.core.exceptions import ValidationError
 
 
 class Exercise(models.Model):
 
-    name = models.CharField(max_length=75)
-    created_at = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=75, default='')
+    created_at = models.DateTimeField(default=timezone.now)
 
     # Exercise modality type
     modality = models.CharField(max_length=50, choices=[

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django_guid",
     "common",
     "exercises",
-    "bodies"
+    "bodies",
+    "tasks"
 ]
 
 MIDDLEWARE = [
