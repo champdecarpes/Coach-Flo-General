@@ -16,7 +16,9 @@ DEBUG = True
 
 # ADMINS = (("Admin", "nikita.polikarpov050@gmail.com"),)
 
-# AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "base_models.BaseUserModel"
+
+
 
 ALLOWED_HOSTS = []
 
@@ -35,13 +37,20 @@ INSTALLED_APPS = [
     "webpack_loader",
     "import_export",
     "rest_framework",
+    "rest_framework.authtoken"
     "drf_spectacular",
     "defender",
     "django_guid",
     "common",
-    "exercises",
     "bodies",
-    "tasks"
+    "clients",
+    "exercises",
+    "organizations",
+    "programs",
+    "sections",
+    "tasks",
+    "trainers",
+    "workouts"
 ]
 
 MIDDLEWARE = [
@@ -110,6 +119,7 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
