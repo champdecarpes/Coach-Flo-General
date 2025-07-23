@@ -40,7 +40,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         """
         Update existing Workout instance and its relationships
-        Updates workout fields and sets new relationship IDs
+        Updates workouts fields and sets new relationship IDs
         """
         section_ids = validated_data.pop('sections', [])
         exercise_ids = validated_data.pop('exercises', [])

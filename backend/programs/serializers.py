@@ -26,7 +26,7 @@ class ProgramSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """
         Create a new Program instance with nested relationships.
-        Expects lists of workout, section, and exercise IDs.
+        Expects lists of workouts, section, and exercise IDs.
         """
         workout_ids = validated_data.pop('workouts', [])
         section_ids = validated_data.pop('sections', [])

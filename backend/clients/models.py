@@ -6,7 +6,7 @@ from programs.models import Program
 from trainers.models import Trainer
 from exercises.models import Exercise
 from bodies.models import Body  # Assuming BodyMetrics model exists
-from workout.models import Workout
+from workouts.models import Workout
 
 
 class Client(AbstractUser):
