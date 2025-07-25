@@ -14,7 +14,7 @@ SITE_ID = 1
 
 DEBUG = True
 
-# ADMINS = (("Admin", "nikita.polikarpov050@gmail.com"),)
+ADMINS = (("Polik", "nikita.polikarpov050@gmail.com"),)
 
 AUTH_USER_MODEL = "base_models.BaseUserModel"
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "defender",
     "django_guid",
+    "djoser",
     "common",
     "bodies",
     "clients",
@@ -69,7 +70,7 @@ MIDDLEWARE = [
     "django_guid.middleware.guid_middleware",
 ]
 
-ROOT_URLCONF = "CoachFlo.urls"
+ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
@@ -97,7 +98,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "CoachFlo.wsgi.application"
+WSGI_APPLICATION = "server.wsgi.application"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -125,6 +126,12 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+
+# configure Djoser
+DJOSER = {
+    "USER_ID_FIELD": "username"
 }
 
 # drf-spectacular
