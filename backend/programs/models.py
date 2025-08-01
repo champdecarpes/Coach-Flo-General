@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
-from trainers.models import Trainer
+from accounts.models import TrainerProfile
 
 
 class Program(models.Model):
@@ -12,15 +11,15 @@ class Program(models.Model):
 
     name = models.CharField(max_length=75)  # Program name
     created_at = models.DateTimeField(default=timezone.now)  # Creation timestamp
-    workouts = models.ManyToManyField("Workout", blank=True)  # Related Workouts
-    sections = models.ManyToManyField("Section", blank=True)  # Related Sections
-    exercises = models.ManyToManyField("Exercise", blank=True)  # Related Exercises
+    workouts = models.ManyToManyField('workouts.Workout', blank=True)  # Related Workouts
+    sections = models.ManyToManyField('sections.Section', blank=True)  # Related Sections
+    exercises = models.ManyToManyField('exercises.Exercise', blank=True)  # Related Exercises
 
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
 
-    ownership = models.ForeignKey(Trainer, on_delete=models.CASCADE, null=True,
-                                  blank=True)  # Trainer who created the program  # Ownership details
+    # Trainer who created the program
+    ownership = models.ForeignKey('accounts.TrainerProfile', on_delete=models.CASCADE, null=True)
     visibility = models.CharField(max_length=20, choices=[
         ('public', 'Public'),
         ('private', 'Private')

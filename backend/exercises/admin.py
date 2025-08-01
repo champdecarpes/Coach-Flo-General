@@ -15,7 +15,7 @@ class ExerciseAdmin(admin.ModelAdmin):
 
     search_fields = ['modality', 'muscle_group', 'movement_pattern', 'instructions']
 
-    fields = ['modality', 'muscle_group', 'movement_pattern', 'instructions', 'links', 'default_note',
+    fields = ['modality', 'muscle_group', 'movement_pattern', 'instructions', 'links',
               'monitored_fields']
 
     def get_readonly_fields(self, request, obj=None):

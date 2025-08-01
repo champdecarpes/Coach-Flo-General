@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Section
-from exercises.models import Exercise
 
 
 @admin.register(Section)

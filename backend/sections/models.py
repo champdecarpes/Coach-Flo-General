@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from exercises.models import Exercise
 
 
 class Section(models.Model):
@@ -20,7 +19,7 @@ class Section(models.Model):
         ('freestyle', 'Freestyle')
     ])  # Type of section
 
-    exercises = models.ManyToManyField(Exercise, blank=True)  # Related Exercises
+    exercises = models.ManyToManyField('exercises.Exercise', blank=True)  # Related Exercises
 
     start_time = models.TimeField(default='00:00:00', blank=True, null=True)  # Section duration
 

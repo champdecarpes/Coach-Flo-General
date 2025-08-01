@@ -17,10 +17,15 @@ backend_format:
 # Commands for Docker version
 docker_setup:
 	docker volume create CoachFlo_dbdata
+	echo "=== First stage completed - volume created ==="
 	docker compose build --no-cache backend
+	echo "=== Second stage completed - backend is built ==="
 	docker compose run --rm backend python manage.py spectacular --color --file schema.yml
+	echo "=== Third stage completed - schema is created ==="
 	docker compose run frontend npm install
+	echo "=== Fourth stage completed - fronted is installed ==="
 	docker compose run --rm frontend npm run openapi-ts
+	echo "=== Fifth stage completed - typescript script finished ==="
 
 docker_test:
 	docker compose run backend python manage.py test $(ARG) --parallel --keepdb

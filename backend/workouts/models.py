@@ -1,11 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from exercises.models import Exercise
-from trainers.models import Trainer
-from sections.models import Section
-
-
 class Workout(models.Model):
     """
     Workout model representing a daily exercise plan with Sections and Exercises
@@ -15,11 +10,11 @@ class Workout(models.Model):
     created_at = models.DateTimeField(default=timezone.now)  # Creation timestamp
     description = models.TextField(blank=True, null=True)  # Workout description
 
-    sections = models.ManyToManyField("Section", blank=True)  # Related Sections
-    exercises = models.ManyToManyField(Exercise, blank=True)  # Related Exercises
+    sections = models.ManyToManyField('sections.Section', blank=True)  # Related Sections
+    exercises = models.ManyToManyField('exercises.Exercise', blank=True)  # Related Exercises
 
     # Trainer who created the program  # Ownership details
-    ownership = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    ownership = models.ForeignKey('accounts.TrainerProfile', on_delete=models.CASCADE)
     visibility = models.CharField(max_length=20, choices=[
         ('public', 'Public'),
         ('private', 'Private')

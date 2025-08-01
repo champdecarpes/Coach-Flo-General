@@ -3,15 +3,13 @@ from django.utils import timezone
 from django.db import models
 from django.core.exceptions import ValidationError
 
-from trainers.models import Trainer
-
 
 class Exercise(models.Model):
     name = models.CharField(max_length=75, default='')
     created_at = models.DateTimeField(default=timezone.now)
 
     # Trainer who created the program  # Ownership details
-    ownership = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    ownership = models.ForeignKey('accounts.TrainerProfile', on_delete=models.CASCADE)
     visibility = models.CharField(max_length=20, choices=[
         ('public', 'Public'),
         ('private', 'Private')
@@ -123,7 +121,7 @@ class TrackingFields(models.Model):
     rest = models.TimeField(default='00:00:00')
 
     def __str__(self):
-        return self.id
+        return f'{self.id}'
 
     class Meta:
         verbose_name = "Tracking Field"

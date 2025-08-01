@@ -16,9 +16,7 @@ DEBUG = True
 
 ADMINS = (("Polik", "nikita.polikarpov050@gmail.com"),)
 
-AUTH_USER_MODEL = "base_models.BaseUserModel"
-
-
+AUTH_USER_MODEL = "accounts.User"
 
 ALLOWED_HOSTS = []
 
@@ -37,20 +35,19 @@ INSTALLED_APPS = [
     "webpack_loader",
     "import_export",
     "rest_framework",
-    "rest_framework.authtoken"
+    "rest_framework.authtoken",
     "drf_spectacular",
     "defender",
     "django_guid",
     "djoser",
+    "accounts",
     "common",
     "bodies",
-    "clients",
+    "branding",
     "exercises",
-    "organizations",
     "programs",
     "sections",
     "tasks",
-    "trainers",
     "workouts"
 ]
 
@@ -127,7 +124,6 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
-
 
 # configure Djoser
 DJOSER = {

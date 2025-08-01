@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Program
-from trainers.models import Trainer
 
 
 @admin.register(Program)
@@ -11,7 +10,7 @@ class ProgramAdmin(admin.ModelAdmin):
     """
     list_display = ('id', 'name', 'ownership', 'visibility', 'start_date', 'end_date', 'created_at')  # Fields to display
     list_filter = ('visibility', 'start_date', 'end_date', 'created_at')  # Filter options
-    search_fields = ('name', 'ownership__full_name', 'description')  # Searchable fields
+    search_fields = ('name', 'description')  # Searchable fields
     date_hierarchy = 'created_at'  # Date hierarchy for filtering
     fields = (
         'name', 'start_date', 'end_date', 'visibility', 'description', 'ownership',
