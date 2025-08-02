@@ -20,10 +20,10 @@ describe("Home", () => {
     jest.clearAllMocks();
   });
 
-  test("renders static assets and rest API data", async () => {
+  test("renders static public and rest API data", async () => {
     render(<Home />);
 
-    expect(screen.getByText("Static assets")).toBeInTheDocument();
+    expect(screen.getByText("Static public")).toBeInTheDocument();
     expect(screen.getByText("Rest API")).toBeInTheDocument();
     expect(await screen.findByText("Test Result")).toBeInTheDocument();
   });

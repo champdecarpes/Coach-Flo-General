@@ -10,12 +10,12 @@ module.exports = (env, argv) => {
   const localhostOutput = {
     path: path.resolve("./frontend/webpack_bundles/"),
     publicPath: "http://localhost:3000/frontend/webpack_bundles/",
-    filename: "[name].js",
+    filename: "[name].src",
   };
   const productionOutput = {
     path: path.resolve("./frontend/webpack_bundles/"),
     publicPath: "auto",
-    filename: "[name]-[chunkhash].js",
+    filename: "[name]-[chunkhash].src",
     clean: true,
   };
 
@@ -31,7 +31,7 @@ module.exports = (env, argv) => {
       headers: { "Access-Control-Allow-Origin": "*" },
     },
     context: __dirname,
-    entry: ["./frontend/js/index.tsx"],
+    entry: ["./frontend/src/index.tsx"],
     output: isDev ? localhostOutput : productionOutput,
     module: {
       rules: [
@@ -94,7 +94,7 @@ module.exports = (env, argv) => {
       }),
     ].filter(Boolean),
     resolve: {
-      modules: [nodeModulesDir, path.resolve(__dirname, "frontend/js/")],
+      modules: [nodeModulesDir, path.resolve(__dirname, "frontend/src/")],
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     optimization: {

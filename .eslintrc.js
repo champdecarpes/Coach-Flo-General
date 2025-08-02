@@ -33,7 +33,7 @@ module.exports = {
         extensions: [".js", ".jsx", ".ts", ".tsx"],
       },
       webpack: {
-        config: path.join(__dirname, "/webpack.config.js"),
+        config: path.join(__dirname, "/webpack.config.src"),
         "config-index": 1,
       },
       typescript: {

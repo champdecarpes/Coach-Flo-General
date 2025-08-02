@@ -63,12 +63,12 @@ class Exercise(models.Model):
     ])
 
     # Instructions for performing the exercise
-    instructions = models.TextField(max_length=500, default='')
+    instructions = models.TextField(max_length=500)
     # Links to additional resources
-    links = models.TextField(max_length=500, default='')
+    links = models.TextField(max_length=500, blank=True)
 
     # note for the exercise
-    note = models.CharField(max_length=100, default='')
+    note = models.CharField(max_length=100, blank=True)
 
     # Flag for each side execution
     each_side = models.BooleanField(default=False)

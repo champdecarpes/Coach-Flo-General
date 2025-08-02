@@ -23,7 +23,6 @@ ALLOWED_HOSTS = []
 DATABASES = {
     "default": config("DATABASE_URL", cast=db_url),
 }
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -40,15 +39,15 @@ INSTALLED_APPS = [
     "defender",
     "django_guid",
     "djoser",
-    "accounts",
     "common",
-    "bodies",
     "branding",
-    "exercises",
-    "programs",
-    "sections",
     "tasks",
-    "workouts"
+    "bodies",
+    "exercises",
+    "sections",
+    "programs",
+    "workouts",
+    "accounts"
 ]
 
 MIDDLEWARE = [

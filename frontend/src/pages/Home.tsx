@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 
-import DjangoImgSrc from "../../assets/images/django-logo-negative.png";
+import DjangoImgSrc from "public/images/django-logo-negative.png";
 import { RestService } from "../api";
 
 const Home = () => {
