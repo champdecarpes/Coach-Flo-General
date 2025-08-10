@@ -18,7 +18,7 @@ services:
   result:
     image: "redis:alpine"
     ports:
-    - "6379:6379"
+      - "6379:6379"
 
   frontend:
     build:
@@ -27,6 +27,9 @@ services:
     volumes:
       - .:/app/
       - /app/node_modules
+      - ./frontend/public:/app/public
+      - ./frontend/src:/app/frontend/src
+      - ./frontend/dev:/app/frontend/dev
     ports:
       - "3000:3000"
 
