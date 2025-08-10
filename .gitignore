@@ -43,6 +43,8 @@ npm-debug.log
 /output/
 /cache/
 boilerplate.zip
+/frontend/src/dev/
+/frontend-vite/src/dev/
 
 # Spritesmith
 spritesmith-generated/
