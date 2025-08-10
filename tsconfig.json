@@ -16,5 +16,6 @@
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },
   "include": ["./frontend/**/*.ts", "./frontend/**/*.tsx"],
-  "exclude": ["node_modules", "build", "frontend/**/*.js", "frontend/**/*.jsx"]
+  "exclude": [
+    "./node_modules", "build", "frontend/**/*.js", "frontend/**/*.jsx"]
 }

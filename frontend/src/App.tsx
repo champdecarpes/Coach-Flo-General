@@ -1,21 +1,27 @@
 import * as Sentry from "@sentry/react";
-import cookie from "cookie";
+import { parse } from "cookie";
+import React from "react";
 
 import { OpenAPI } from "./api";
-import Home from "./pages/Home";
 
 OpenAPI.interceptors.request.use((request) => {
-  const { csrftoken } = cookie.parse(document.cookie);
+  const { csrftoken } = parse(document.cookie);
   if (request.headers && csrftoken) {
     request.headers["X-CSRFTOKEN"] = csrftoken;
   }
   return request;
 });
 
-const App = () => (
-  <Sentry.ErrorBoundary fallback={<p>An error has occurred</p>}>
-    <Home />
-  </Sentry.ErrorBoundary>
-);
+export default function App() {
+  return (
+    <React.StrictMode>
+      <p>TEST PLEASE</p>
+      <Sentry.ErrorBoundary fallback={<p>An error has occurred</p>}>
+        <p>Test route</p>
+        <p>Test route</p>
+      </Sentry.ErrorBoundary>
+    </React.StrictMode>
+  );
+}
 
-export default App;
+// export default App;

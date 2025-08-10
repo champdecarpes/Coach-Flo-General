@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 
 import DjangoImgSrc from "public/images/django-logo-negative.png";
+import BasicLayout from "src/features/Layouts/BasicLayout/BasicLayout";
+
 import { RestService } from "../api";
 
 const Home = () => {
@@ -17,7 +19,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <BasicLayout>
       <h2>Static assets</h2>
       <div id="django-background">
         If you are seeing the green Django logo on a white background and this
@@ -39,7 +41,7 @@ const Home = () => {
       {/* NOTE: The next line intentionally contains an error for testing frontend errors in Sentry. */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {showBugComponent && (showBugComponent as any).field.notexist}
-    </>
+    </BasicLayout>
   );
 };
 
