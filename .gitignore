@@ -44,7 +44,8 @@ npm-debug.log
 /cache/
 boilerplate.zip
 /frontend/src/dev/
-/frontend-vite/src/dev/
+/frontend
+/backend/*/migrations/
 
 # Spritesmith
 spritesmith-generated/
@@ -57,3 +58,5 @@ tmp_email/
 .envrc
 .tool-versions
 /package-lock.json
+
+/backend/accounts/migrations/

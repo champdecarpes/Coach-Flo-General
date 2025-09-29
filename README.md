@@ -2,16 +2,41 @@
 
 ## About
 
-A [Django](https://www.djangoproject.com/) project boilerplate/template with a multitude of state-of-the-art libraries
-and tools. If pairing Django with React is a possibility for your project or spinoff, this is the best solution
-available. Save time with tools like:
+### API Docs
+
+| Endpoint                            | Methods                 | Purpose                                                                                                                                          | Data returned (key fields)                                                                                                                                                                                                                                                       |
+|-------------------------------------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **/api/rest/rest‑check/**           | GET                     | Basic health check to confirm the API is working.                                                                                                | JSON with a single `message` field.                                                                                                                                                                                                                                              |
+| **/brands/**                        | GET, POST               | List all brands or create a new brand.                                                                                                           | Array or object with brand `id` and `name`.                                                                                                                                                                                                                                      |
+| **/brands/{id}/**                   | GET, PUT, PATCH, DELETE | Retrieve, update or delete a specific brand.                                                                                                     | Single brand object (`id`, `name`).                                                                                                                                                                                                                                              |
+| **/api/bodychangehistory/**         | GET                     | List all body change history records. Creation is disabled (POST returns 405).                                                                   | Array of history entries: `id`, `body` (body ID), `field_name`, `old_value`, `new_value`, `timestamp`.                                                                                                                                                                           |
+| **/api/bodychangehistory/{id}/**    | GET, PUT, PATCH, DELETE | Retrieve, update or delete a specific body change record.                                                                                        | Single history entry with the same fields as above.                                                                                                                                                                                                                              |
+| **/tasks/**                         | GET, POST               | List all tasks or create a new task.                                                                                                             | Each task contains `id`, `name`, `date`, `note`, `done`, plus nested `body_metric` with body‑measurement fields (e.g., weight, body_fat, height, etc.).                                                                                                                          |
+| **/tasks/{id}/**                    | GET, PUT, PATCH, DELETE | Retrieve, update or delete a specific task.                                                                                                      | Single task object with the same fields as above.                                                                                                                                                                                                                                |
+| **/exercises/**                     | GET, POST               | List or create exercises. Supports filtering by `modality`, `muscle_group` and `movement_pattern`, and ordering by `id`, `modality`, `strength`. | Exercise objects with `id`, `name`, `created_at`, `ownership` (trainer), `visibility`, `modality`, `muscle_group`, `movement_pattern`, `instructions`, `links`, `note`, `each_side`, `monitored_fields`, and a list of `tracking_fields` (e.g., reps, weight, time, heart_rate). |
+| **/exercises/{id}/**                | GET, PUT, PATCH, DELETE | Retrieve, update or delete a specific exercise.                                                                                                  | Single exercise object with the fields listed above.                                                                                                                                                                                                                             |
+| **/sections/**                      | GET, POST               | List all sections or create a new section.                                                                                                       | Each section contains `id`, `name`, `created_at`, `section_type`, `exercises` (list of exercise IDs), `start_time`, `rounds`, `duration`, `rest`, `note`.                                                                                                                        |
+| **/sections/{id}/**                 | GET, PUT, PATCH, DELETE | Retrieve, update or delete a specific section.                                                                                                   | Single section object with the same fields as above.                                                                                                                                                                                                                             |
+| **/programs/**                      | GET, POST               | List all programs or create a new program.                                                                                                       | Program objects include `id`, `name`, `created_at`, `workouts` (list of workout IDs), `sections` (list of section IDs), `exercises` (list of exercise IDs), `start_date`, `end_date`, `ownership` (trainer), `visibility`, and `description`.                                    |
+| **/programs/{id}/**                 | GET, PUT, PATCH, DELETE | Retrieve, update or delete a specific program.                                                                                                   | Single program object with the fields listed above.                                                                                                                                                                                                                              |
+| **/workouts/**                      | GET, POST               | List all workouts or create a new workout.                                                                                                       | Each workout contains `id`, `name`, `created_at`, `description`, `sections` (list of section IDs), `exercises` (list of exercise IDs), `ownership` (trainer) and `visibility`.                                                                                                   |
+| **/workouts/{id}/**                 | GET, PUT, PATCH, DELETE | Retrieve, update or delete a specific workout.                                                                                                   | Single workout object with the same fields as above.                                                                                                                                                                                                                             |
+| **/api/v1/users/** *(Djoser)*       | POST                    | Register a new user.                                                                                                                             | User object with fields such as `id`, `email`, `username`, `role`, `birthday`, etc.                                                                                                                                                                                              |
+| **/api/v1/token/login/** *(Djoser)* | POST                    | Obtain an authentication token.                                                                                                                  | JSON containing the authentication `auth_token`.                                                                                                                                                                                                                                 |
+| **/api/v1/users/me/** *(Djoser)*    | GET                     | Retrieve the currently authenticated user’s profile.                                                                                             | User object (`id`, `email`, `username`, `role`, personal details).                                                                                                                                                                                                               |
+
+### Tools of the project:
 
 - [React](https://react.dev/), for building interactive UIs
 - [TypeScript](https://www.typescriptlang.org/), for static type checking
 - [Poetry](https://python-poetry.org/), for managing the environment and its dependencies
+- [Strawberry](https://strawberry.rocks/docs/integrations/django) for GraphQL on server-side
+- [Apollo Client](https://www.apollographql.com/docs/react) for GraphQL on client-side
 - [django-js-reverse](https://github.com/vintasoftware/django-js-reverse), for generating URLs on JS
 - [React Bootstrap](https://react-bootstrap.github.io/), for responsive styling
-- [Webpack](https://webpack.js.org/), for bundling static assets
+- [Tailwind](https://tailwindcss.com/) for styling without css
+- [styled-components](https://styled-components.com/) for styling html components
+- [Vite](https://vite.dev/), for bundling static assets
 - [Celery](https://docs.celeryq.dev/en/stable/), for background worker tasks
 - [WhiteNoise](https://whitenoise.readthedocs.io/en/stable/)
   with [brotlipy](https://github.com/python-hyper/brotlicffi), for efficient static files serving
@@ -25,6 +50,7 @@ Also, includes a Render.com `render.yaml` and a working Django `production.py` s
 with ['Deploy to Render' button](https://render.com/docs/deploy-to-render). The `render.yaml` includes the following:
 
 - PostgreSQL, for DB
+- Redis, for Caching
 - Redis, for Celery
 
 ## Features Catalogue
@@ -34,12 +60,12 @@ with ['Deploy to Render' button](https://render.com/docs/deploy-to-render). The 
 - `react` for building interactive UIs
 - `react-dom` for rendering the UI
 - `react-router` for page navigation
-- `webpack` for bundling static assets
-- `webpack-bundle-tracker` for providing the bundled assets to Django
+- `vite` for bundling static assets
 - Styling
   - `bootstrap` for providing responsive stylesheets
   - `react-bootstrap` for providing components built on top of Bootstrap CSS without using plugins
-  - `sass` for providing compatibility with SCSS files
+  - `tailwind` for utility-first CSS with predefined classes that speed up styling directly in markup
+  - `styled-components` for writing scoped, dynamic CSS inside JavaScript/TypeScript components
 - State management and backend integration
   - `axios` for performing asynchronous calls
   - `cookie` for easy integration with Django using the `csrftoken` cookie
